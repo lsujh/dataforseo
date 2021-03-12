@@ -91,6 +91,7 @@ DATABASES = {
 #         'PASSWORD': config('DATABASE_PASSWORD', default=None),
 #         'HOST': config('DATABASE_HOST', default=None),
 #         'PORT': config('DATABASE_PORT', cast=int, default=0),
+
 #     }
 # }
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
