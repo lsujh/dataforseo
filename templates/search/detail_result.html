@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-1">
+            <p> <a href="{% url 'search:search_form' %}" class="btn btn-primary">New task</a></p>
+            <p><a href="{% url 'search:list_result' %}" class="btn btn-primary">Task status</a></p>
+        </div>
+        <div class="col-sm-8 offset-1">
+            {% for result in results %}
+            <p><span class="text-muted">Group rank in SERP:</span> {{ result.rank_group }}<br>
+                <span class="text-muted">Absolute rank in SERP:</span> {{ result.rank_absolute }}<br>
+                <span class="text-muted">Domain in SERP:</span> {{ result.domain }}<br>
+                <span class="text-muted">Title of the results element in SERP:</span> {{ result.title }}<br>
+                <span class="text-muted">Description of the results element in SERP:</span> {{ result.description }}<br>
+                <span class="text-muted">Relevant URL in SERP:</span> <a href="{{ result.url }}">{{ result.url }}</a><br>
+                <span class="text-muted">Breadcrumb in SERP:</span> {{ result.breadcrumb }}
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

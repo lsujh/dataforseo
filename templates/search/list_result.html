@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            <a href="{% url 'search:search_form' %}" class="btn btn-primary">New task</a>
+        </div>
+        <div class="col-sm-8 offset-3">
+            {% for result in results %}
+            <p><span class="text-muted">Task:</span> {{ result.id }}<br>
+                <span class="text-muted">Status the task:</span> {{ result.status_message }}<br>
+                <span class="text-muted">Search engine:</span> {{ result.task_search.se }}<br>
+                <span class="text-muted">Language_code:</span> {{ result.task_search.language_code }}<br>
+                <span class="text-muted">Location_code:</span> {{ result.task_search.location_code }}<br>
+                <span class="text-muted">Keyword:</span> {{ result.task_search.keyword }}<br>
+                {% if result.status_message == 'Ok.' %}
+                <a href="{% url 'search:detail' se=result.task_search.se pk=result.id %}" class="btn btn-primary">Load Result</a>
+                {% elif result.status_message == 'Downloaded' %}
+                <a href="{% url 'search:detail' se=result.task_search.se pk=result.id %}" class="btn btn-primary">View result</a>
+                {% endif %}</p>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
