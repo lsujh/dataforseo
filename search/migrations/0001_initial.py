@@ -8,49 +8,90 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Tasks',
+            name="Tasks",
             fields=[
-                ('id', models.CharField(max_length=50, primary_key=True, serialize=False)),
-                ('status_code', models.SmallIntegerField()),
-                ('status_message', models.CharField(max_length=20)),
-                ('time', models.CharField(blank=True, max_length=20, null=True)),
-                ('cost', models.FloatField(blank=True, null=True)),
+                (
+                    "id",
+                    models.CharField(max_length=50, primary_key=True, serialize=False),
+                ),
+                ("status_code", models.SmallIntegerField()),
+                ("status_message", models.CharField(max_length=20)),
+                ("time", models.CharField(blank=True, max_length=20, null=True)),
+                ("cost", models.FloatField(blank=True, null=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Result',
+            name="Result",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(blank=True, max_length=20, null=True)),
-                ('rank_group', models.SmallIntegerField(blank=True, null=True)),
-                ('rank_absolute', models.SmallIntegerField(blank=True, null=True)),
-                ('domain', models.CharField(blank=True, max_length=250, null=True)),
-                ('title', models.CharField(blank=True, max_length=500, null=True)),
-                ('description', models.CharField(blank=True, max_length=2000, null=True)),
-                ('url', models.URLField(blank=True, max_length=2000, null=True)),
-                ('breadcrumb', models.CharField(blank=True, max_length=500, null=True)),
-                ('task', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='task_result', to='search.tasks')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("type", models.CharField(blank=True, max_length=20, null=True)),
+                ("rank_group", models.SmallIntegerField(blank=True, null=True)),
+                ("rank_absolute", models.SmallIntegerField(blank=True, null=True)),
+                ("domain", models.CharField(blank=True, max_length=250, null=True)),
+                ("title", models.CharField(blank=True, max_length=500, null=True)),
+                (
+                    "description",
+                    models.CharField(blank=True, max_length=2000, null=True),
+                ),
+                ("url", models.URLField(blank=True, max_length=2000, null=True)),
+                ("breadcrumb", models.CharField(blank=True, max_length=500, null=True)),
+                (
+                    "task",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="task_result",
+                        to="search.tasks",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='DataSearch',
+            name="DataSearch",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('api', models.CharField(blank=True, max_length=20, null=True)),
-                ('function', models.CharField(blank=True, max_length=20, null=True)),
-                ('se', models.CharField(max_length=20)),
-                ('se_type', models.CharField(blank=True, max_length=20, null=True)),
-                ('language_code', models.CharField(blank=True, max_length=20, null=True)),
-                ('location_code', models.CharField(blank=True, max_length=20, null=True)),
-                ('keyword', models.CharField(max_length=1000)),
-                ('device', models.CharField(blank=True, max_length=20, null=True)),
-                ('os', models.CharField(blank=True, max_length=20, null=True)),
-                ('task', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='task_search', to='search.tasks')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("api", models.CharField(blank=True, max_length=20, null=True)),
+                ("function", models.CharField(blank=True, max_length=20, null=True)),
+                ("se", models.CharField(max_length=20)),
+                ("se_type", models.CharField(blank=True, max_length=20, null=True)),
+                (
+                    "language_code",
+                    models.CharField(blank=True, max_length=20, null=True),
+                ),
+                (
+                    "location_code",
+                    models.CharField(blank=True, max_length=20, null=True),
+                ),
+                ("keyword", models.CharField(max_length=1000)),
+                ("device", models.CharField(blank=True, max_length=20, null=True)),
+                ("os", models.CharField(blank=True, max_length=20, null=True)),
+                (
+                    "task",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="task_search",
+                        to="search.tasks",
+                    ),
+                ),
             ],
         ),
     ]
