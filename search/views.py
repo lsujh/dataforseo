@@ -6,7 +6,6 @@ from django.conf import settings
 
 from .forms import SearchForm
 from .client import RestClient
-from countries import ENGINE
 from .models import Tasks, DataSearch, Result
 
 client = RestClient(settings.LOGIN, settings.PASSWORD)
@@ -62,8 +61,10 @@ class ListResult(ListView):
     context_object_name = "results"
 
     def get_queryset(self):
-        for engine in ENGINE:
-            response = client.get(f"/v3/serp/{engine[0]}/organic/tasks_ready")
+        results = Tasks.objects.all().select_related()
+        tasks_ = [_ for _ in results if _.status_message=="Task Created."]
+        for task_ in tasks_:
+            response = client.get(f"/v3/serp/{task_.task_search.se}/organic/tasks_ready")
             if response["status_code"] == 20000:
                 for task in response["tasks"]:
                     if task["result"]:
@@ -78,7 +79,7 @@ class ListResult(ListView):
                     "error. Code: %d Message: %s"
                     % (response["status_code"], response["status_message"]),
                 )
-        results = Tasks.objects.all().select_related()
+        results = Tasks.objects.all().select_related() if tasks_ else results
         return results
 
 

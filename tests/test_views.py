@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from search import views, models, forms
 
+
 client = Client()
 pytestmark = pytest.mark.django_db
 
@@ -34,10 +35,16 @@ class TestSearchFormView:
 
 
 class TestListResultView:
-    def test_list_result(self):
+    def test_list_result(self, create_task, create_datasearch):
+        task = create_task(
+            id="01291721-1535-0066-0000-8f0635c0dc89",
+            status_message="Task Created.",
+            status_code=20100,
+        )
+        data_search = create_datasearch(task=task)
         req = RequestFactory().get(reverse("search:list_result"))
         resp = views.ListResult.as_view()(
-            req, pk="01291721-1535-0066-0000-8f0635c0dc89", se="google"
+            req, pk="01291721-1535-0066-0000-8f0635c0dc89", se=data_search.se
         )
         assert resp.status_code == 200
 
@@ -68,3 +75,5 @@ class TestResultView:
         )
         resp = views.DetailResult.as_view()(req, pk=task.id, se=data_search.se)
         assert resp.status_code == 200
+
+
